@@ -1,6 +1,6 @@
 # Spiel Tic-Tac-Toe
 print("Willkommen zum Spiel Tic-Tac-Toe!")
-print("Lassen Sie uns beginnen!")
+print(" Ich hoffe Sie haben gute Laune! Lassen Sie uns beginnen!")
 print()
 
 # Das Spielboard erstellen
