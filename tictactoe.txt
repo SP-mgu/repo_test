@@ -1,0 +1,110 @@
+# Spiel Tic-Tac-Toe
+print("Willkommen zum Spiel Tic-Tac-Toe!")
+print("Lassen Sie uns beginnen!")
+print()
+
+# Das Spielboard erstellen
+board = [" ",
+             "1","2","3",
+             "4","5","6",
+             "7","8","9"]
+
+# Das Board ausgeben
+spiel_aktiv = True
+def board_ausgeben():
+    print (board[1] + "|" + board[2] + "|" + board[3] )
+    print (board[4] + "|" + board[5] + "|" + board[6] )
+    print (board[7] + "|" + board[8] + "|" + board[9] )
+
+# Eingabe des Spielers und Kontrolle der Eingabe
+def spieler_eingabe():
+    global spiel_aktiv
+    while True:
+        spielzug = input("Bitte Feld eingeben: ")
+        # ein vorzeitiges Spielende durch Spieler erzwingen
+        if spielzug == 'a':
+            spiel_aktiv = False
+            return
+        try:
+            spielzug = int(spielzug)
+        except ValueError:
+            print("Bitte geben Sie eine Zahl von 1 bis 9 ein!")
+        else:
+            if spielzug >= 1 and spielzug <= 9:
+                if board[spielzug] == 'X' or board[spielzug] == 'O':
+                    print("Das Feld ist bereits belegt, bitte wählen Sie ein anderes!")
+                else:
+                    return spielzug
+            else:
+                print("Die Zahl muss zwischen 1 und 9 liegen!")
+
+spieler_aktuell = 'X'
+def spieler_wechseln():
+    global spieler_aktuell
+    if spieler_aktuell == 'X':
+        spieler_aktuell = 'O'
+    else:
+        spieler_aktuell = 'X'
+
+# Kontrolle, ob ein Spieler gewonnen hat
+def kontrolle_gewonnen():
+    # wenn alle 3 Felder gleich sind, hat der entsprechende Spieler gewonnen
+    # Kontrolle auf Reihen des Boards
+    if board[1] == board[2] == board[3]:
+        return spielfeld[1]
+    if board[4] == board[5] == board[6]:
+        return spielfeld[4]
+    if board[7] == board[8] == board[9]:
+        return board[7]
+    # Kontrolle auf Spalten des Boards
+    if board[1] == board[4] == board[7]:
+        return spielfeld[1]
+    if board[2] == board[5] == board[8]:
+        return spielfeld[2]
+    if board[3] == board[6] == board[9]:
+        return board[3]
+    # Kontrolle auf Diagonalen des Boards
+    if board[1] == board[5] == board[9]:
+        return board[5]
+    if board[7] == board[5] == board[3]:
+        return board[5]
+ 
+ #Kontrolle ob untenschieden gespielt wurde       
+def kontrolle_auf_unentschieden():
+    if (board[1] == 'X' or board[1] == 'O') \
+      and (board[2] == 'X' or board[2] == 'O') \
+      and (board[3] == 'X' or board[3] == 'O') \
+      and (board[4] == 'X' or board[4] == 'O') \
+      and (board[5] == 'X' or board[5] == 'O') \
+      and (board[6] == 'X' or board[6] == 'O') \
+      and (board[7] == 'X' or board[7] == 'O') \
+      and (board[8] == 'X' or board[8] == 'O') \
+      and (board[9] == 'X' or board[9] == 'O'):
+        return ('unentschieden')
+        
+# Das aktuelles Spielfeld ausgeben
+board_ausgeben()
+while spiel_aktiv:
+    # Die Eingabe des aktiven Spielers
+    print()
+    print ("Der Spieler " + spieler_aktuell + " ist dran.")
+    print()
+    spielzug = spieler_eingabe()
+    if spielzug:
+        board[spielzug] = spieler_aktuell
+        # Das aktuelle Spielfeld ausgeben
+        board_ausgeben()
+        # Kontrolle, ob jemand gewonnen hat
+        gewonnen = kontrolle_gewonnen()
+        if gewonnen:
+            print (" Der Spieler " + gewonnen + " hat gewonnen! Herzlichen Glückwunsch!")
+            spiel_aktiv = False
+            break
+        # Kontrolle, ob unentschieden gespielt wurde
+        unentschieden = kontrolle_auf_unentschieden()
+        if unentschieden:
+            print ("Das Spiel ist unentschieden ausgegangen.")
+            spiel_aktiv = False
+        # Den Spieler Spieler wechseln
+        spieler_wechseln()
+print() 
